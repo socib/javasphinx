@@ -31,8 +31,8 @@ class Converter(object):
         self._preprocess_anchors = re.compile(r'<a\s+name\s*=\s*["\']?(.+?)["\']?\s*>')
         self._post_process_empty_lines = re.compile(r'^\s+$', re.MULTILINE)
         self._post_process_compress_lines = re.compile(r'\n{3,}')
-        self._whitespace_with_newline = re.compile(r'[\s\n]+')
-        self._whitespace = re.compile(r'\s+')
+        self._whitespace_with_newline = re.compile(r'[ \n]+')
+        self._whitespace = re.compile(r' +')
         self._html_tag = re.compile(r'<.*?>')
 
         self._preprocess_entity = re.compile(r'&(nbsp|lt|gt|amp)([^;]|[\n])')
@@ -234,7 +234,7 @@ class Converter(object):
 
     def _process(self, node):
         if isinstance(node, basestring):
-            return self._compress_whitespace(node)
+            return node
 
         simple_tags = {
             'b'      : lambda s: self._inline('**', s),
